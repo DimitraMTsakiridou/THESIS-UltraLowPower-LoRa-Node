@@ -3,9 +3,9 @@
 Aiming to address the challenges of remote water quality monitoring and bypass the complexity of standard LoRaWAN networks, this repository contains the from-scratch design, end-to-end implementation, and extensive experimental evaluation of a custom, energy-autonomous LoRa telemetry node.
 
 <p align="center">
-  <img src="*/pcb_closeup.JPG" width="45%" alt="Custom STM32WL55 PCB">
+  <img src="two_leds.jpg" width="45%" alt="Custom STM32WL55 PCB">
   &nbsp; &nbsp;
-  <img src="*/field_deployment.JPG" width="45%" alt="Solar Panel and Antenna Field Deployment">
+  <img src="whole_system.jpg" width="45%" alt="Solar Panel and Antenna Field Deployment">
 </p>
 
 ## 🚀 Key Achievements & Architecture
