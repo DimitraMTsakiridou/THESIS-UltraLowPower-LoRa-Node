@@ -1,0 +1,488 @@
+[
+    {
+        "id": "0c4d30b5c1775d3e",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "93bbc678c816c7a8",
+        "type": "debug",
+        "z": "0c4d30b5c1775d3e",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "1f88e77dacafd518",
+        "type": "serial in",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "serial": "ef8ea114e1ed17b3",
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "03c5a27e19a781be"
+            ]
+        ]
+    },
+    {
+        "id": "03c5a27e19a781be",
+        "type": "json",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "93bbc678c816c7a8",
+                "a6111df30123e810",
+                "eaf627b2294cf6ba",
+                "ba8a5972a65b910a",
+                "5d950d5849c6453e",
+                "26f60cd0b8a304ab",
+                "368d109ebb92b09c"
+            ]
+        ]
+    },
+    {
+        "id": "a6111df30123e810",
+        "type": "change",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.rssi",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 240,
+        "wires": [
+            [
+                "75847c50a2927eef"
+            ]
+        ]
+    },
+    {
+        "id": "eaf627b2294cf6ba",
+        "type": "change",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.snr",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "d2b3ea4f1722499e"
+            ]
+        ]
+    },
+    {
+        "id": "ba8a5972a65b910a",
+        "type": "change",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.cnt",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 360,
+        "wires": [
+            [
+                "dbb693bba41a9aeb"
+            ]
+        ]
+    },
+    {
+        "id": "d2b3ea4f1722499e",
+        "type": "ui_chart",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "group": "b6d46267d6cfa037",
+        "order": 2,
+        "width": "9",
+        "height": "6",
+        "label": "SNR Ratio",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-25",
+        "ymax": "15",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#8b3c44",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 750,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dbb693bba41a9aeb",
+        "type": "ui_chart",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "group": "b6d46267d6cfa037",
+        "order": 4,
+        "width": "9",
+        "height": "6",
+        "label": "Packet Counter",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1eb330",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 760,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5d950d5849c6453e",
+        "type": "function",
+        "z": "0c4d30b5c1775d3e",
+        "name": "ORP value",
+        "func": "// Το μήνυμα είναι: \"ID:1|CNT:7|ORP:5.2\"\nvar text = msg.payload.msg; \n\n// Το κόβουμε εκεί που έχει '|'\nvar parts = text.split(\"|\"); \n// Τώρα το parts[2] είναι \"ORP:5.2\"\n\n// Το κόβουμε εκεί που έχει ':' και παίρνουμε το δεύτερο κομμάτι\nvar valueString = parts[2].split(\":\")[1]; \n// Τώρα έχουμε το \"5.2\"\n\n// Το μετατρέπουμε σε αριθμό για το γράφημα\nmsg.payload = parseFloat(valueString);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 420,
+        "wires": [
+            [
+                "619f0b78a35a5295"
+            ]
+        ]
+    },
+    {
+        "id": "619f0b78a35a5295",
+        "type": "ui_chart",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "group": "b6d46267d6cfa037",
+        "order": 3,
+        "width": "9",
+        "height": "6",
+        "label": "ORP Value",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "10",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#b3ae1e",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 750,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "75847c50a2927eef",
+        "type": "ui_chart",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "group": "b6d46267d6cfa037",
+        "order": 1,
+        "width": "9",
+        "height": "6",
+        "label": "RSSI Level",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-140",
+        "ymax": "-40",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 750,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ee4719326b61536d",
+        "type": "file",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "filename": "C:\\Users\\dimit\\Desktop\\writting\\lora_data\\test_results_22dBm.csv",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 920,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "26f60cd0b8a304ab",
+        "type": "function",
+        "z": "0c4d30b5c1775d3e",
+        "name": "Results",
+        "func": "// 1. Παίρνουμε την τρέχουσα ώρα (Timestamp)\nvar date = new Date();\nvar timestamp = date.toLocaleTimeString(); // Ώρα π.χ. \"19:30:05\"\n\n// 2. Παίρνουμε τα βασικά δεδομένα\nvar count = msg.payload.cnt;\nvar rssi = msg.payload.rssi;\nvar snr = msg.payload.snr;\n\n// 3. Βγάζουμε το ORP (όπως κάναμε πριν)\nvar text = msg.payload.msg;\nvar orp = \"0\"; // Default τιμή αν κάτι πάει στραβά\n\n// Ασφαλής έλεγχος για να μην κρασάρει αν λείπει κάτι\nif (text && text.includes(\"|\") && text.includes(\":\")) {\n    var parts = text.split(\"|\");\n    if (parts.length > 2) {\n        var orpPart = parts[2].split(\":\");\n        if (orpPart.length > 1) {\n            orp = orpPart[1];\n        }\n    }\n}\n\n// 4. Φτιάχνουμε τη γραμμή για το CSV (χωρισμένα με κόμμα)\n// Προσθέτουμε και αλλαγή γραμμής (\\n) στο τέλος\nmsg.payload = timestamp + \",\" + count + \",\" + rssi + \",\" + snr + \",\" + orp + \"\\n\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 480,
+        "wires": [
+            [
+                "ee4719326b61536d"
+            ]
+        ]
+    },
+    {
+        "id": "368d109ebb92b09c",
+        "type": "function",
+        "z": "0c4d30b5c1775d3e",
+        "name": "Sender Packet ID",
+        "func": "// Το μήνυμα είναι π.χ.: \"ID:1|CNT:30|ORP:6.9\"\nvar raw_msg = msg.payload.msg;\n\n// 1. Σπάμε το μήνυμα στις κάθετες γραμμές \"|\"\nvar parts = raw_msg.split(\"|\"); \n// Τώρα το parts[1] είναι \"CNT:30\"\n\n// 2. Σπάμε το δεύτερο κομμάτι στην άνω-κάτω τελεία \":\"\nvar count_part = parts[1].split(\":\");\n// Τώρα το count_part[1] είναι \"30\"\n\n// 3. Το μετατρέπουμε σε καθαρό αριθμό\nvar real_packet_id = parseInt(count_part[1]);\n\n// 4. Το βάζουμε στο payload για να το δει το γράφημα\nmsg.payload = real_packet_id;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 540,
+        "wires": [
+            [
+                "2b0f9d596d1f6a93"
+            ]
+        ]
+    },
+    {
+        "id": "2b0f9d596d1f6a93",
+        "type": "ui_chart",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "group": "b6d46267d6cfa037",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Sender Packet ID",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ca0ed8",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 810,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ef8ea114e1ed17b3",
+        "type": "serial-port",
+        "name": "",
+        "serialport": "COM16",
+        "serialbaud": "115200",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": 10000
+    },
+    {
+        "id": "b6d46267d6cfa037",
+        "type": "ui_group",
+        "name": "22dBm",
+        "tab": "0a62ac2e1590c1bc",
+        "order": 2,
+        "disp": true,
+        "width": "18",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0a62ac2e1590c1bc",
+        "type": "ui_tab",
+        "name": "Range Test Dashboard (car node)",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "05924eaeac816a97",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-node-serialport": "2.0.3",
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]

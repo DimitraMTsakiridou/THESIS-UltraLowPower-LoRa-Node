@@ -1,0 +1,73 @@
+[
+    {
+        "id": "f32d0c3462758cbc",
+        "type": "ui_chart",
+        "z": "0c4d30b5c1775d3e",
+        "name": "",
+        "group": "1699036b77b2edcb",
+        "order": 4,
+        "width": "0",
+        "height": "0",
+        "label": "Sender Packet ID",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ca0ed8",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 890,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1699036b77b2edcb",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "0a62ac2e1590c1bc",
+        "order": 2,
+        "disp": true,
+        "width": "18",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0a62ac2e1590c1bc",
+        "type": "ui_tab",
+        "name": "Range Test Dashboard (car node)",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "846f0a11aef44ff6",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
