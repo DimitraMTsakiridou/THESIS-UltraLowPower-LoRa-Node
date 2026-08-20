@@ -26,11 +26,10 @@ volatile int16_t  rx_rssi = 0;
 volatile int8_t   rx_snr = 0;
 char last_decrypted_msg[64];
 
-/* --- FLAGS (Η καρδιά της σταθερότητας) --- */
+/* --- FLAGS  --- */
 volatile bool flag_packet_received = false;
 volatile bool flag_rx_error = false;
 
-// Buffer για να σώσουμε τα δεδομένα από το Interrupt ακαριαία
 uint8_t  safe_payload[255];
 uint16_t safe_size;
 
@@ -50,9 +49,8 @@ static void MX_USART2_UART_Init(void);
 void MX_SUBGHZ_Init(void);
 void My_Delay_Ms(uint32_t ms);
 
-/* --- CALLBACKS (Τρέχουν αστραπιαία και φεύγουν) --- */
+/* --- CALLBACKS --- */
 void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr) {
-    // Απλά αντιγράφουμε τα δεδομένα και σηκώνουμε σημαία
     if (size < 255) {
         memcpy(safe_payload, payload, size);
         safe_size = size;
@@ -60,7 +58,6 @@ void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr) {
         rx_snr = snr;
         flag_packet_received = true;
     }
-    // ΠΡΟΣΟΧΗ: ΔΕΝ καλούμε Radio.Rx(0) εδώ! Θα το κάνει η main.
 }
 
 void OnRxTimeout(void) { flag_rx_error = true; }
@@ -74,7 +71,7 @@ void Radio_Setup_Receiver(void) {
     RadioEvents.RxError = OnRxError;
     Radio.Init(&RadioEvents);
     Radio.SetChannel(865800000);
-    Radio.SetPublicNetwork(false); // Σιγουρέψου ότι και ο Πομπός έχει αυτό!
+    Radio.SetPublicNetwork(false); 
     Radio.SetRxConfig(MODEM_LORA, 0, 12, 1, 0, 8, 0, false, 0, true, 0, 0, false, true);
 
     Radio.Rx(0);
@@ -92,7 +89,7 @@ int main(void)
 
   hcryp.Init.pKey = my_aes_key;
 
-  // Heartbeat στην αρχή
+  // Heartbeat
   for(int i=0; i<3; i++) {
       HAL_GPIO_WritePin(LED_STATUS_GPIO_Port, LED_STATUS_Pin, GPIO_PIN_SET);
       My_Delay_Ms(50);
@@ -100,26 +97,23 @@ int main(void)
       My_Delay_Ms(150);
   }
 
-  // Ανάβουμε το Κόκκινο LED μόνιμα (Ένδειξη ότι ο Δέκτης τρέχει)
+  // Always RED LED ON 
   HAL_GPIO_WritePin(LED_STATUS_GPIO_Port, LED_STATUS_Pin, GPIO_PIN_SET);
 
   Radio_Setup_Receiver();
 
   while (1)
   {
-      MX_SubGHz_Phy_Process(); // Απαραίτητο
+      MX_SubGHz_Phy_Process(); 
       HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
-      // --- ΣΕΝΑΡΙΟ 1: Λάβαμε Πακέτο ---
+      // --- SCENARIO 1: Packet Received ---
       if (flag_packet_received) {
-          flag_packet_received = false; // Κατεβάζουμε τη σημαία
+          flag_packet_received = false; 
 
-          rx_success_cnt++; // Αυξάνουμε τον μετρητή (1 φορά!)
+          rx_success_cnt++; 
 
-          // 1. Άναψε το SMPS LED
           HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_SET);
 
-
-          // 2. Αποκρυπτογράφηση
           uint8_t decrypted[32] = {0};
           if (safe_size >= 36) {
               HAL_CRYP_Init(&hcryp);
@@ -128,40 +122,30 @@ int main(void)
               memset(last_decrypted_msg, 0, 64);
               strncpy(last_decrypted_msg, (char*)decrypted, 32);
 
-              // 3. Στείλε στο PC
               int len = sprintf(uart_buf, "{\"id\":%d,\"rssi\":%d,\"snr\":%d,\"data\":\"%s\"}\r\n",
                                 safe_payload[1], rx_rssi, rx_snr, (char*)decrypted);
               HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, len, 100);
           }
 
-          // 4. Περίμενε 1 Δευτερόλεπτο (Blocking Delay - Εδώ επιτρέπεται!)
-          // Όσο περιμένουμε εδώ, το ράδιο είναι ΚΛΕΙΣΤΟ, άρα δεν μπορεί να λάβει νέο interrupt
           My_Delay_Ms(1000);
-
-          // 5. Σβήσε το LED
           HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_RESET);
-
-          // 6. ΤΩΡΑ ξανανοίγουμε το ράδιο για το επόμενο
           Radio.Rx(0);
       }
 
-      // --- ΣΕΝΑΡΙΟ 2: Λάθος Λήψη (π.χ. Θόρυβος) ---
+      // --- SCENARIO 2: Reception Error ---
       if (flag_rx_error) {
           flag_rx_error = false;
-          // Απλά κάνουμε reset το Rx χωρίς να αναβοσβήσουμε LED ή να αυξήσουμε counter
           Radio.Rx(0);
       }
   }
 }
 
-// Η δική σου Delay, διορθωμένη για να μην κολλάει
 void My_Delay_Ms(uint32_t ms) {
     for(uint32_t i = 0; i < ms; i++) {
         for(volatile uint32_t j = 0; j < 1450; j++) { __NOP(); }
     }
 }
 
-// ... (Init functions - άσε τα ίδια με πριν) ...
 void SystemClock_Config(void) {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
